@@ -10,33 +10,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.zhaw.springboot.entities.Person;
-import ch.zhaw.springboot.repositories.PersonRepository;
+import ch.zhaw.springboot.entities.User;
+import ch.zhaw.springboot.repositories.UserRepository;
 
 @RestController
 public class PersonRestController {
 	@Autowired
-	private PersonRepository repository;
+	private UserRepository repository;
 
-	@RequestMapping(value = "infections/persons", method = RequestMethod.GET)
-	public ResponseEntity<List<Person>> getPersons() {
-		List<Person> result = this.repository.findAll();
+	@RequestMapping(value = "pwo/persons", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getPersons() {
+		List<User> result = this.repository.findAll();
 
 		if (!result.isEmpty()) {
-			return new ResponseEntity<List<Person>>(result, HttpStatus.OK);
+			return new ResponseEntity<List<User>>(result, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<List<Person>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@RequestMapping(value = "infections/persons/{birthdate}", method = RequestMethod.GET)
-	public ResponseEntity<List<Person>> getPersonsByBirthdate(@PathVariable("birthdate") long birthdate) {
-		List<Person> result = this.repository.findPersonsByBirthdate(birthdate);
+	@RequestMapping(value = "pwo/users/{birthdate}", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getUsersByBirthdate(@PathVariable("birthdate") long birthdate) {
+		List<User> result = this.repository.findUsersByBirthdate(birthdate);
 
 		if (!result.isEmpty()) {
-			return new ResponseEntity<List<Person>>(result, HttpStatus.OK);
+			return new ResponseEntity<List<User>>(result, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<List<Person>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
