@@ -1,5 +1,5 @@
 package ch.zhaw.springboot.entities;
-
+//hallo Salome
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
