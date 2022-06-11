@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.zhaw.springboot.entities.Login;
 import ch.zhaw.springboot.entities.restaurants;
 import ch.zhaw.springboot.repositories.RestaurantRepository;
 
@@ -41,5 +43,11 @@ public ResponseEntity <restaurants> getRestaurant(@PathVariable("id") long id) {
 		return new ResponseEntity<restaurants>(HttpStatus.NOT_FOUND);
 	}
 	return new ResponseEntity<restaurants>(result.get(), HttpStatus.OK);
+}
+
+@RequestMapping(value = "eatily/restaurant", method = RequestMethod.POST)
+public ResponseEntity<restaurants> createRestaurant(@RequestBody restaurants restaurants) {
+restaurants result = this.repository.save(restaurants);
+return new ResponseEntity<restaurants>(result, HttpStatus.OK);
 }
 }

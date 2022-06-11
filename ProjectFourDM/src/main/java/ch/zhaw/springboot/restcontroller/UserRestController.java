@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,7 @@ public class UserRestController {
 	@Autowired
 	private UserRepository repository;
 	
-	@RequestMapping(value="cbp/user", method=RequestMethod.GET)
+	@RequestMapping(value="eatily/user", method=RequestMethod.GET)
 	public ResponseEntity <List<User>> getUsers() {
 		
 		List<User> result = this.repository.findAll();
@@ -33,7 +34,7 @@ public class UserRestController {
 		return new ResponseEntity<List<User>>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value ="pwo/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value ="eatily/users/{id}", method = RequestMethod.GET)
 	public ResponseEntity <User> getUser(@PathVariable("id") long id) {
 		Optional<User> result = this.repository.findById(id);
 		
@@ -49,9 +50,29 @@ public class UserRestController {
 		return new ResponseEntity<User>(result, HttpStatus.OK);
 	}
 	
-	@PutMapping("pwo/users/{id}")
+	@RequestMapping(value = "eatily/users/{id}", method = RequestMethod.PUT)
 	 public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
-	  Optional<User> user = UserRepository.findById(id);
+	  Optional<User> user = this.repository.findById(id);
+	  
+	  if (user.isPresent()) {
+		   User us = user.get();
+		   us.setName(newUser.getName());
+		   us.setTelefonnummer(newUser.getTelefonnummer());
+		   return ResponseEntity.ok().body(us);
+		  } else {
+		   return ResponseEntity.notFound().build();
+		  }
 	}
+	
+	 @RequestMapping(value = "/eatily/users/{id}", method = RequestMethod.DELETE)
+	 public ResponseEntity<User> deleteUser(@PathVariable(value = "id") Long id) {
+	  Optional<User> user = this.repository.findById(id);
+	  if (user.isPresent()) {
+	   this.repository.delete(user.get());
+	   return new ResponseEntity("User has been deleted successfully.", HttpStatus.OK);
+	  } else {
+	   return ResponseEntity.notFound().build();
+	  }
+	 }
 
 }
