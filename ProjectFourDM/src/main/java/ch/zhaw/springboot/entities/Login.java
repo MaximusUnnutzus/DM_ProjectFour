@@ -1,5 +1,5 @@
 package ch.zhaw.springboot.entities;
-//Helo
+//Helosssss
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
