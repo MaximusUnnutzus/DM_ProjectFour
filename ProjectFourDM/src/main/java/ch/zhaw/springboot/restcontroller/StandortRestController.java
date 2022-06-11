@@ -49,4 +49,40 @@ public ResponseEntity<Standort> createStandort(@RequestBody Standort standort) {
 Standort result = this.repository.save(standort);
 return new ResponseEntity<Standort>(result, HttpStatus.OK);
 }
+
+@RequestMapping(value = "eatily/Standort", method = RequestMethod.POST)
+public ResponseEntity<Standort> createPerson(@RequestBody Standort Standort) {
+Standort result = this.repository.save(Standort);
+return new ResponseEntity<Standort>(result, HttpStatus.OK);
+}
+
+@RequestMapping(value = "eatily/Standort/{id}", method = RequestMethod.PUT)
+public ResponseEntity<Standort> updateStandort(@PathVariable(value = "id") Long id, @RequestBody Standort newStandort) {
+Optional<Standort> Standort = this.repository.findById(id);
+
+if (Standort.isPresent()) {
+Standort st = Standort.get();
+st.setStrasse(newStandort.getStrasse());
+st.setPLZ(newStandort.getPLZ());
+st.setStadt(newStandort.getStadt());
+
+Standort updatedStandort = this.repository.save(st);
+return new ResponseEntity<Standort>((updatedStandort), HttpStatus.OK);
+} else {
+return ResponseEntity.notFound().build();
+}
+}
+
+@RequestMapping(value = "/eatily/Standort/{id}", method = RequestMethod.DELETE)
+public ResponseEntity<Standort> deleteUser(@PathVariable(value = "id") Long id) {
+Optional<Standort> stani = this.repository.findById(id);
+if (stani.isPresent()) {
+this.repository.delete(stani.get());
+return new ResponseEntity("Standort has been deleted successfully.", HttpStatus.OK);
+} else {
+return ResponseEntity.notFound().build();
+}
+}
+
+
 }

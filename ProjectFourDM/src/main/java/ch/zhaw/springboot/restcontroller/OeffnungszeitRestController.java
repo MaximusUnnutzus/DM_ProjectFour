@@ -48,4 +48,36 @@ public class OeffnungszeitRestController {
 	    return new ResponseEntity<Oeffnungszeit>(result, HttpStatus.OK);
 	    }
 
+	 @RequestMapping(value = "/eatily/oeffnungszeit/{id}", method = RequestMethod.PUT)
+	 public ResponseEntity<Oeffnungszeit> updateOeffnungszeit(@PathVariable(value = "id") Long id, @RequestBody Oeffnungszeit newOeffnungszeit) {
+	 Optional<Oeffnungszeit> Oeffnungszeit = this.repository.findById(id);
+
+	 if (Oeffnungszeit.isPresent()) {
+	 Oeffnungszeit us = Oeffnungszeit.get();
+	 us.setWochentag(newOeffnungszeit.getWochentag());
+	 us.setStartZeit(newOeffnungszeit.getStartZeit());
+	 us.setEndZeit(newOeffnungszeit.getEndZeit());
+
+
+
+	 Oeffnungszeit updatedOeffnungszeit = this.repository.save(us);
+	 return new ResponseEntity<Oeffnungszeit>((updatedOeffnungszeit), HttpStatus.OK);
+	 } else {
+	 return ResponseEntity.notFound().build();
+	 }
+	 }
+
+	 @RequestMapping(value = "/eatily/oeffnungszeit/{id}", method = RequestMethod.DELETE)
+	 public ResponseEntity<Oeffnungszeit> deleteOeffnungszeit(@PathVariable(value = "id") Long id) {
+	 Optional<Oeffnungszeit> Oeffnungszeit = this.repository.findById(id);
+	 if (Oeffnungszeit.isPresent()) {
+	 this.repository.delete(Oeffnungszeit.get());
+	 return new ResponseEntity("Oeffnungszeit has been deleted successfully.", HttpStatus.OK);
+	 } else {
+	 return ResponseEntity.notFound().build();
+	 }
+	 }
+
+
+	 
 }

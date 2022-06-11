@@ -49,4 +49,39 @@ public ResponseEntity<Menu> createPerson(@RequestBody Menu menu) {
 Menu result = this.repository.save(menu);
 return new ResponseEntity<Menu>(result, HttpStatus.OK);
 }
+
+@RequestMapping(value = "eatily/Menu", method = RequestMethod.POST)
+public ResponseEntity<Menu> createMenu(@RequestBody Menu Menu) {
+Menu result = this.repository.save(Menu);
+return new ResponseEntity<Menu>(result, HttpStatus.OK);
+}
+
+@RequestMapping(value = "/eatily/Menu/{id}", method = RequestMethod.PUT)
+public ResponseEntity<Menu> updateMenu(@PathVariable(value = "id") Long id, @RequestBody Menu newMenu) {
+Optional<Menu> Menu = this.repository.findById(id);
+
+if (Menu.isPresent()) {
+Menu me = Menu.get();
+me.setName(newMenu.getName());
+me.setPreis(newMenu.getPreis());
+System.out.println(me);
+
+Menu updatedMenu = this.repository.save(me);
+return new ResponseEntity<Menu>((updatedMenu), HttpStatus.OK);
+} else {
+return ResponseEntity.notFound().build();
+}
+}
+
+@RequestMapping(value = "/eatily/Menu/{id}", method = RequestMethod.DELETE)
+public ResponseEntity<Menu> deleteMenu(@PathVariable(value = "id") Long id) {
+Optional<Menu> stani = this.repository.findById(id);
+if (stani.isPresent()) {
+this.repository.delete(stani.get());
+return new ResponseEntity("Menu has been deleted successfully.", HttpStatus.OK);
+} else {
+return ResponseEntity.notFound().build();
+}
+}
+
 }
