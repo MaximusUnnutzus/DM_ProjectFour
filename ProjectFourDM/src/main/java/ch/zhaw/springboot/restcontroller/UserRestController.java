@@ -23,7 +23,7 @@ public class UserRestController {
 	@Autowired
 	private UserRepository repository;
 	
-	@RequestMapping(value="eatily/user", method=RequestMethod.GET)
+	@RequestMapping(value="eatily/users", method=RequestMethod.GET)
 	public ResponseEntity <List<User>> getUsers() {
 		
 		List<User> result = this.repository.findAll();
@@ -34,7 +34,7 @@ public class UserRestController {
 		return new ResponseEntity<List<User>>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value ="eatily/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value ="eatily/user/{id}", method = RequestMethod.GET)
 	public ResponseEntity <User> getUser(@PathVariable("id") long id) {
 		Optional<User> result = this.repository.findById(id);
 		
@@ -44,7 +44,7 @@ public class UserRestController {
 		return new ResponseEntity<User>(result.get(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "eatily/users", method = RequestMethod.POST)
+	@RequestMapping(value = "eatily/user", method = RequestMethod.POST)
 	public ResponseEntity<User> createPerson(@RequestBody User user) {
 		User result = this.repository.save(user);
 		return new ResponseEntity<User>(result, HttpStatus.OK);

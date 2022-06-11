@@ -19,8 +19,8 @@ public class Login {
 	private String email;
 	private String passwort;
 	
-	@OneToOne
-	private User user;
+	//@OneToOne
+	//private User user;
 	
 	public Login() {
 		
@@ -30,7 +30,7 @@ public class Login {
 		super();
 		this.email = email;
 		this.passwort = passwort;
-		this.user = user;
+		//this.user = user;
 	}
 
 	public String getEmail() {
@@ -53,9 +53,9 @@ public class Login {
 		return id;
 	}
 
-	public User getUser() {
-		return user;
-	}
+	//public User getUser() {
+		//return user;
+	//}
 	
 
 }

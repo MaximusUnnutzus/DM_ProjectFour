@@ -27,7 +27,6 @@ public class User {
 	private Login login;
 	
 	@ManyToMany
-    
     @JoinTable(
     		  name = "User_Restaurant", 
     		  joinColumns = @JoinColumn(name = "user_id"), 
@@ -41,8 +40,6 @@ public User() {
 		
 	}
 	
-	
-
 	public User(String name, String telefonnummer) {
 	super();
 	this.name = name;
@@ -72,8 +69,6 @@ public User() {
 	public Login getLogin() {
 		return login;
 	}
-	
-	
 	
 	
 }
