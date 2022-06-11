@@ -18,6 +18,9 @@ public class restaurants {
 	@ManyToMany (mappedBy = "matchedRestaurants")
     Set<User> matches;
 	
+	@ManyToMany (mappedBy = "matchOeffnungszeit")
+    Set<Oeffnungszeit> match;
+	
 	private String name;
 	private long vertragsStart;
 	private long vertragsEnde;

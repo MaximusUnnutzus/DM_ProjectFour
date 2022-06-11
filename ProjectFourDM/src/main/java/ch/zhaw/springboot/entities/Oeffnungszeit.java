@@ -1,11 +1,17 @@
 package ch.zhaw.springboot.entities;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
+
 
 public class Oeffnungszeit {
 	
@@ -16,6 +22,14 @@ public class Oeffnungszeit {
 	private String wochentag;
 	private long startZeit;
 	private long endZeit;
+	
+	@ManyToMany
+	@JoinTable(
+			  name = "Oeffnungszeit_Restaurant", 
+			  joinColumns = @JoinColumn(name = "oeffnungszeit_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
+
+	Set<restaurants> matchOeffnungszeit;
 	
 	public Oeffnungszeit() {
 		
