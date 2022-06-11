@@ -1,4 +1,4 @@
-package ch.zhaw.springboot.restcontroller;
+/*package ch.zhaw.springboot.restcontroller;
 
 import java.util.List;
 
@@ -39,4 +39,4 @@ public class PersonRestController {
 			return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
 		}
 	}
-}
+}*/
