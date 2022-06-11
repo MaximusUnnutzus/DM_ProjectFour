@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.zhaw.springboot.entities.Login;
+import ch.zhaw.springboot.entities.User;
 import ch.zhaw.springboot.entities.restaurants;
 import ch.zhaw.springboot.repositories.RestaurantRepository;
 
@@ -46,8 +47,37 @@ public ResponseEntity <restaurants> getRestaurant(@PathVariable("id") long id) {
 }
 
 @RequestMapping(value = "eatily/restaurant", method = RequestMethod.POST)
-public ResponseEntity<restaurants> createRestaurant(@RequestBody restaurants restaurants) {
-restaurants result = this.repository.save(restaurants);
-return new ResponseEntity<restaurants>(result, HttpStatus.OK);
+public ResponseEntity<restaurants> createRestaurant(@RequestBody restaurants restaurant) {
+	restaurants result = this.repository.save(restaurant);
+	return new ResponseEntity<restaurants>(result, HttpStatus.OK);
 }
+
+@RequestMapping(value = "eatily/restaurant/{id}", method = RequestMethod.PUT)
+public ResponseEntity<restaurants> updateRestaurant(@PathVariable(value = "id") Long id, @RequestBody restaurants newRestaurant) {
+Optional<restaurants> restaurant = this.repository.findById(id);
+
+if (restaurant.isPresent()) {
+restaurants res = restaurant.get();
+res.setName(newRestaurant.getName());
+res.setVertragsStart(newRestaurant.getVertragsStart());
+res.setVertragsEnde(newRestaurant.getVertragsEnde());
+
+restaurants updatedRestaurant = this.repository.save(res);
+return new ResponseEntity<restaurants>((updatedRestaurant), HttpStatus.OK);
+} else {
+return ResponseEntity.notFound().build();
+}
+}
+
+ @RequestMapping(value = "/eatily/users/{id}", method = RequestMethod.DELETE)
+ public ResponseEntity<restaurants> deleteRestaurant(@PathVariable(value = "id") Long id) {
+  Optional<restaurants> restaurant = this.repository.findById(id);
+  if (restaurant.isPresent()) {
+   this.repository.delete(restaurant.get());
+   return new ResponseEntity("Restaurant has been deleted successfully.", HttpStatus.OK);
+  } else {
+   return ResponseEntity.notFound().build();
+  }
+ }
+
 }

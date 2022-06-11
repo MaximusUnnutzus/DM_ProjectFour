@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,23 +44,25 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value = "eatily/user", method = RequestMethod.POST)
-	public ResponseEntity<User> createPerson(@RequestBody User user) {
+	public ResponseEntity<User> createUser(@RequestBody User user) {
 		User result = this.repository.save(user);
 		return new ResponseEntity<User>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "eatily/users/{id}", method = RequestMethod.PUT)
-	 public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
-	  Optional<User> user = this.repository.findById(id);
-	  
-	  if (user.isPresent()) {
-		   User us = user.get();
-		   us.setName(newUser.getName());
-		   us.setTelefonnummer(newUser.getTelefonnummer());
-		   return ResponseEntity.ok().body(us);
-		  } else {
-		   return ResponseEntity.notFound().build();
-		  }
+	@RequestMapping(value = "eatily/user/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
+	Optional<User> user = this.repository.findById(id);
+	
+	if (user.isPresent()) {
+	User us = user.get();
+	us.setName(newUser.getName());
+	us.setTelefonnummer(newUser.getTelefonnummer());
+
+	User updatedUser = this.repository.save(us);
+	return new ResponseEntity<User>((updatedUser), HttpStatus.OK);
+	} else {
+	return ResponseEntity.notFound().build();
+	}
 	}
 	
 	 @RequestMapping(value = "/eatily/users/{id}", method = RequestMethod.DELETE)
