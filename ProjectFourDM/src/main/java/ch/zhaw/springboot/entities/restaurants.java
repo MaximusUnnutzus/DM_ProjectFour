@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 
@@ -18,8 +19,12 @@ public class restaurants {
 	@ManyToMany (mappedBy = "matchedRestaurants")
     Set<User> matches;
 	
+
 	@ManyToMany (mappedBy = "matchOeffnungszeit")
     Set<Oeffnungszeit> match;
+	
+	@OneToMany   
+	Set<Standort> standorte;
 	
 	private String name;
 	private long vertragsStart;

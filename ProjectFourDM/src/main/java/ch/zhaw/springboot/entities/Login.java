@@ -1,5 +1,5 @@
 package ch.zhaw.springboot.entities;
-//hallo Salome
+//Helosssss
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 @Entity
 
 public class Login {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
