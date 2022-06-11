@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ public class LoginRestController {
 	@Autowired
 	private LoginRepository repository;
 	
-	@RequestMapping(value="cbp/login", method=RequestMethod.GET)
+	@RequestMapping(value="eatily/login", method=RequestMethod.GET)
 	public ResponseEntity <List<Login>> getLogins() {
 		
 		List<Login> result = this.repository.findAll();
@@ -32,7 +33,7 @@ public class LoginRestController {
 		return new ResponseEntity<List<Login>>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "pwo/logins/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "eatily/logins/{id}", method = RequestMethod.GET)
 	public ResponseEntity <Login> getLogin(@PathVariable("id") long id) {
 		Optional<Login> result = this.repository.findById(id);
 		
@@ -40,6 +41,12 @@ public class LoginRestController {
 			return new ResponseEntity<Login>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Login>(result.get(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "eatily/login", method = RequestMethod.POST)
+	public ResponseEntity<Login> createLogin(@RequestBody Login login) {
+	Login result = this.repository.save(login);
+	return new ResponseEntity<Login>(result, HttpStatus.OK);
 	}
 
 }

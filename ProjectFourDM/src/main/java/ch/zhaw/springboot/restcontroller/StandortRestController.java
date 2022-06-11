@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,5 +42,11 @@ public ResponseEntity <Standort> getStandort(@PathVariable("id") long id) {
 		return new ResponseEntity<Standort>(HttpStatus.NOT_FOUND);
 	}
 	return new ResponseEntity<Standort>(result.get(), HttpStatus.OK);
+}
+
+@RequestMapping(value = "eatily/standort", method = RequestMethod.POST)
+public ResponseEntity<Standort> createStandort(@RequestBody Standort standort) {
+Standort result = this.repository.save(standort);
+return new ResponseEntity<Standort>(result, HttpStatus.OK);
 }
 }

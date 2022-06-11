@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,5 +42,11 @@ public ResponseEntity <Menu> getMenu(@PathVariable("id") long id) {
 		return new ResponseEntity<Menu>(HttpStatus.NOT_FOUND);
 	}
 	return new ResponseEntity<Menu>(result.get(), HttpStatus.OK);
+}
+
+@RequestMapping(value = "eatily/menu", method = RequestMethod.POST)
+public ResponseEntity<Menu> createPerson(@RequestBody Menu menu) {
+Menu result = this.repository.save(menu);
+return new ResponseEntity<Menu>(result, HttpStatus.OK);
 }
 }
