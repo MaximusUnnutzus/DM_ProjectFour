@@ -24,7 +24,7 @@ public class restaurantsRestController {
 	@Autowired
 	private RestaurantRepository repository;
 	
-	@RequestMapping(value="cbp/restaurants", method=RequestMethod.GET)
+	@RequestMapping(value="/eatily/restaurants", method=RequestMethod.GET)
 	public ResponseEntity <List<restaurants>> getRestaurants(){
 		
 		List<restaurants> result = this.repository.findAll();
@@ -36,7 +36,7 @@ public class restaurantsRestController {
 	}
 	
 
-@RequestMapping(value = "pwo/restaurants/{id}", method = RequestMethod.GET)
+@RequestMapping(value = "/eatily/restaurants/{id}", method = RequestMethod.GET)
 public ResponseEntity <restaurants> getRestaurant(@PathVariable("id") long id) {
 	Optional<restaurants> result = this.repository.findById(id);
 	
@@ -46,13 +46,13 @@ public ResponseEntity <restaurants> getRestaurant(@PathVariable("id") long id) {
 	return new ResponseEntity<restaurants>(result.get(), HttpStatus.OK);
 }
 
-@RequestMapping(value = "eatily/restaurant", method = RequestMethod.POST)
+@RequestMapping(value = "/eatily/restaurant", method = RequestMethod.POST)
 public ResponseEntity<restaurants> createRestaurant(@RequestBody restaurants restaurant) {
 	restaurants result = this.repository.save(restaurant);
 	return new ResponseEntity<restaurants>(result, HttpStatus.OK);
 }
 
-@RequestMapping(value = "eatily/restaurant/{id}", method = RequestMethod.PUT)
+@RequestMapping(value = "/eatily/restaurant/{id}", method = RequestMethod.PUT)
 public ResponseEntity<restaurants> updateRestaurant(@PathVariable(value = "id") Long id, @RequestBody restaurants newRestaurant) {
 Optional<restaurants> restaurant = this.repository.findById(id);
 

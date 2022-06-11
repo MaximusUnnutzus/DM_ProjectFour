@@ -22,7 +22,7 @@ public class MenuRestController {
 	@Autowired
 	private MenuRepository repository;
 	
-	@RequestMapping(value="men/Menu", method=RequestMethod.GET)
+	@RequestMapping(value="/eatily/Menu", method=RequestMethod.GET)
 	public ResponseEntity <List<Menu>> getMenu(){
 		
 		List<Menu> result = this.repository.findAll();
@@ -34,7 +34,7 @@ public class MenuRestController {
 	}
 	
 
-@RequestMapping(value = "men/Menu/{id}", method = RequestMethod.GET)
+@RequestMapping(value = "/eatily/Menu/{id}", method = RequestMethod.GET)
 public ResponseEntity <Menu> getMenu(@PathVariable("id") long id) {
 	Optional<Menu> result = this.repository.findById(id);
 	
@@ -44,13 +44,13 @@ public ResponseEntity <Menu> getMenu(@PathVariable("id") long id) {
 	return new ResponseEntity<Menu>(result.get(), HttpStatus.OK);
 }
 
-@RequestMapping(value = "eatily/menu", method = RequestMethod.POST)
+@RequestMapping(value = "/eatily/menu", method = RequestMethod.POST)
 public ResponseEntity<Menu> createPerson(@RequestBody Menu menu) {
 Menu result = this.repository.save(menu);
 return new ResponseEntity<Menu>(result, HttpStatus.OK);
 }
 
-@RequestMapping(value = "eatily/Menu", method = RequestMethod.POST)
+@RequestMapping(value = "/eatily/Menu", method = RequestMethod.POST)
 public ResponseEntity<Menu> createMenu(@RequestBody Menu Menu) {
 Menu result = this.repository.save(Menu);
 return new ResponseEntity<Menu>(result, HttpStatus.OK);

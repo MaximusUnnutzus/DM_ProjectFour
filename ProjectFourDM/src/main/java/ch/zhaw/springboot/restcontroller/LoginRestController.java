@@ -25,7 +25,7 @@ public class LoginRestController {
 	
 	@CrossOrigin(origins = "*")
 	
-	@RequestMapping(value="eatily/logins", method=RequestMethod.GET)
+	@RequestMapping(value="/eatily/logins", method=RequestMethod.GET)
 	public ResponseEntity <List<Login>> getLogins() {
 		
 		List<Login> result = this.repository.findAll();
@@ -36,7 +36,7 @@ public class LoginRestController {
 		return new ResponseEntity<List<Login>>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "eatily/login/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/eatily/login/{id}", method = RequestMethod.GET)
 	public ResponseEntity <Login> getLogin(@PathVariable("id") long id) {
 		Optional<Login> result = this.repository.findById(id);
 		
@@ -46,13 +46,13 @@ public class LoginRestController {
 		return new ResponseEntity<Login>(result.get(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "eatily/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/eatily/login", method = RequestMethod.POST)
 	public ResponseEntity<Login> createLogin(@RequestBody Login login) {
 		Login result = this.repository.save(login);
 		return new ResponseEntity<Login>(login, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "eatily/login/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/eatily/login/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Login> updateLogin(@PathVariable(value = "id") Long id, @RequestBody Login newLogin) {
 	Optional<Login> login = this.repository.findById(id);
 	

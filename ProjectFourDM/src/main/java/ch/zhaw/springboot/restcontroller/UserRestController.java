@@ -22,7 +22,7 @@ public class UserRestController {
 	@Autowired
 	private UserRepository repository;
 	
-	@RequestMapping(value="eatily/users", method=RequestMethod.GET)
+	@RequestMapping(value="/eatily/users", method=RequestMethod.GET)
 	public ResponseEntity <List<User>> getUsers() {
 		
 		List<User> result = this.repository.findAll();
@@ -33,7 +33,7 @@ public class UserRestController {
 		return new ResponseEntity<List<User>>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value ="eatily/user/{id}", method = RequestMethod.GET)
+	@RequestMapping(value ="/eatily/user/{id}", method = RequestMethod.GET)
 	public ResponseEntity <User> getUser(@PathVariable("id") long id) {
 		Optional<User> result = this.repository.findById(id);
 		
@@ -49,14 +49,16 @@ public class UserRestController {
 		return new ResponseEntity<User>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "eatily/user/{id}", method = RequestMethod.PUT)
+
+	@RequestMapping(value = "/eatily/user/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
 	Optional<User> user = this.repository.findById(id);
-	
 	if (user.isPresent()) {
 	User us = user.get();
 	us.setName(newUser.getName());
 	us.setTelefonnummer(newUser.getTelefonnummer());
+
+
 
 	User updatedUser = this.repository.save(us);
 	return new ResponseEntity<User>((updatedUser), HttpStatus.OK);
@@ -64,16 +66,15 @@ public class UserRestController {
 	return ResponseEntity.notFound().build();
 	}
 	}
-	
-	 @RequestMapping(value = "/eatily/users/{id}", method = RequestMethod.DELETE)
-	 public ResponseEntity<User> deleteUser(@PathVariable(value = "id") Long id) {
-	  Optional<User> user = this.repository.findById(id);
-	  if (user.isPresent()) {
-	   this.repository.delete(user.get());
-	   return new ResponseEntity("User has been deleted successfully.", HttpStatus.OK);
-	  } else {
-	   return ResponseEntity.notFound().build();
-	  }
-	 }
+	@RequestMapping(value = "/eatily/user/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<User> deleteUser(@PathVariable(value = "id") Long id) {
+	Optional<User> user = this.repository.findById(id);
+	if (user.isPresent()) {
+	this.repository.delete(user.get());
+	return new ResponseEntity("User has been deleted successfully.", HttpStatus.OK);
+	} else {
+	return ResponseEntity.notFound().build();
+	}
+	}
 
 }

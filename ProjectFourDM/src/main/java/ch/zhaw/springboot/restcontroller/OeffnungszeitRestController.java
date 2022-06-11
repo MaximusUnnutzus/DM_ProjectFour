@@ -21,7 +21,7 @@ public class OeffnungszeitRestController {
 	@Autowired
 	private OeffnungszeitRepository repository;
 	
-	@RequestMapping(value="cbp/oeffnungszeit", method=RequestMethod.GET)
+	@RequestMapping(value="/eatily/oeffnungszeit", method=RequestMethod.GET)
 	public ResponseEntity <List<Oeffnungszeit>> getOeffnungszeiten() {
 		
 		List<Oeffnungszeit> result = this.repository.findAll();
@@ -32,7 +32,7 @@ public class OeffnungszeitRestController {
 		return new ResponseEntity<List<Oeffnungszeit>>(result, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "pwo/oeffnungszeiten/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/eatily/oeffnungszeiten/{id}", method = RequestMethod.GET)
 	public ResponseEntity <Oeffnungszeit> getOeffnungszeit(@PathVariable("id") long id) {
 		Optional<Oeffnungszeit> result = this.repository.findById(id);
 		
@@ -42,7 +42,7 @@ public class OeffnungszeitRestController {
 		return new ResponseEntity<Oeffnungszeit>(result.get(), HttpStatus.OK);
 	}
 
-	 @RequestMapping(value = "eatily/oeffnungszeit", method = RequestMethod.POST)
+	 @RequestMapping(value = "/eatily/oeffnungszeit", method = RequestMethod.POST)
 	    public ResponseEntity<Oeffnungszeit> createPerson(@RequestBody Oeffnungszeit oeffnungszeit) {
 	    Oeffnungszeit result = this.repository.save(oeffnungszeit);
 	    return new ResponseEntity<Oeffnungszeit>(result, HttpStatus.OK);

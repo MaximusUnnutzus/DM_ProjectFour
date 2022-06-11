@@ -22,7 +22,7 @@ public class StandortRestController {
 	@Autowired
 	private StandortRepository repository;
 	
-	@RequestMapping(value="sta/Standort", method=RequestMethod.GET)
+	@RequestMapping(value="/eatily/Standort", method=RequestMethod.GET)
 	public ResponseEntity <List<Standort>> getStandort(){
 		
 		List<Standort> result = this.repository.findAll();
@@ -34,7 +34,7 @@ public class StandortRestController {
 	}
 	
 
-@RequestMapping(value = "sta/Standort/{id}", method = RequestMethod.GET)
+@RequestMapping(value = "/eatily/Standort/{id}", method = RequestMethod.GET)
 public ResponseEntity <Standort> getStandort(@PathVariable("id") long id) {
 	Optional<Standort> result = this.repository.findById(id);
 	
@@ -44,19 +44,14 @@ public ResponseEntity <Standort> getStandort(@PathVariable("id") long id) {
 	return new ResponseEntity<Standort>(result.get(), HttpStatus.OK);
 }
 
-@RequestMapping(value = "eatily/standort", method = RequestMethod.POST)
+@RequestMapping(value = "/eatily/Standort", method = RequestMethod.POST)
 public ResponseEntity<Standort> createStandort(@RequestBody Standort standort) {
 Standort result = this.repository.save(standort);
 return new ResponseEntity<Standort>(result, HttpStatus.OK);
 }
 
-@RequestMapping(value = "eatily/Standort", method = RequestMethod.POST)
-public ResponseEntity<Standort> createPerson(@RequestBody Standort Standort) {
-Standort result = this.repository.save(Standort);
-return new ResponseEntity<Standort>(result, HttpStatus.OK);
-}
 
-@RequestMapping(value = "eatily/Standort/{id}", method = RequestMethod.PUT)
+@RequestMapping(value = "/eatily/Standort/{id}", method = RequestMethod.PUT)
 public ResponseEntity<Standort> updateStandort(@PathVariable(value = "id") Long id, @RequestBody Standort newStandort) {
 Optional<Standort> Standort = this.repository.findById(id);
 
